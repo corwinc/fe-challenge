@@ -2,7 +2,9 @@
 
 This repository contains the source code for a simple backend for a small frontend coding challenge.
 
-The point of this exercise is to show us some cool code you can write, so please have fun with it! If anything is unclear or you have questions, feel free to reach out.
+The point of this exercise is to show us some cool code you can write, so have fun with it! If anything is unclear or you have questions, please feel free to ask.
+
+## Goal
 
 The goal is to create an application that allows users to easily label transaction data. Specifically, please write an SPA (single page application) to the given backend, one that allows rapid manual tagging of transactions with labels. 
 
