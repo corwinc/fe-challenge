@@ -18,4 +18,4 @@ in a way that allows rapid manual tagging of transactions with labels.
 
 * The website should be responsive, but don't worry about the aesthetics too much.
 
-* Timebox the challenge to 4 hours, so don't worry about implementing a fancy CI/CD.
+* Timebox the challenge to 4 hours, so don't worry about implementing CI/CD.
