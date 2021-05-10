@@ -6,16 +6,16 @@ The point of this exercise is to show us some cool code you can write, so have f
 
 ## Goal
 
-The goal is to create an application that allows users to easily label transaction data. Specifically, please write an SPA (single page application) to the given backend, one that allows rapid manual tagging of transactions with labels. 
+The goal is to create an application that allows users to easily label transaction data. Specifically, please write a SPA (single page application) to the given backend, one that allows rapid manual tagging of transactions with labels. 
 
 ## Logistics
 
 * This is a one week take home challenge
 * Please fork the repository and hand in your version the day before your interview (either a link to a public code base or tarball)
-* We will review the code and so that when we meet live we can discuss the discuss your solution together.
+* We will review the code so that when we meet live we can discuss the discuss your solution together.
 * Please timebox the challenge to 4 hours, the point is not to have a perfect solution.
 
-## Contraints
+## Constraints
 
 * The transactions can have from 0 to n labels.
 * If possible, use React with Typescript.
