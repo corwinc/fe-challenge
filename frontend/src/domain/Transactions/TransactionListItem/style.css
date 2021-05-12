@@ -1,0 +1,39 @@
+.Container {
+    align-items: center;
+    border-bottom: 1px solid rgb(231, 231, 231);
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 8px;
+    width: 100%;
+}
+
+.Container-left {
+    align-items: center;
+    display: flex;
+}
+
+.Data {
+    margin-right: 32px;
+}
+
+.Data:last-of-type {
+    margin-right: 0;
+}
+
+.Text {
+    font-size: 20px;
+}
+
+.Tags {
+    height: 100%;
+    width: 266px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.Tags:hover {
+    background: rgb(241, 241, 241);
+    cursor: pointer;
+}

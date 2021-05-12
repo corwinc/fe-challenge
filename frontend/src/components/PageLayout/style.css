@@ -1,0 +1,16 @@
+.Page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0 auto;
+    max-width: 1184px;
+    padding-top: 148px;
+    width: 100%;
+  }
+
+
+.Page-title {
+    font-size: 48px;
+    font-weight: 900;
+    margin-bottom: 64px;
+}
