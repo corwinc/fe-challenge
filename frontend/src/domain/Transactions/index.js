@@ -56,6 +56,21 @@ const Transactions = () => {
         setSelectedTransaction(transaction);
     }
 
+    const updateTransactionLabelState = (response) => {
+        const updatedTransaction = Object.assign({}, {
+            ...selectedTransaction,
+            'labels': response
+        });
+        setSelectedTransaction(updatedTransaction);
+
+        const updatedTransactions = transactions.map(transaction => (
+            transaction.id == selectedTransaction.id
+                ? updatedTransaction
+                : transaction
+        ));
+        setTransactions(updatedTransactions);
+    };
+
     const addLabel = (labelId) => {
         const url = `/transactions/${selectedTransaction.id}/labels`;
         const data = {
@@ -73,10 +88,7 @@ const Transactions = () => {
             return response.json();
         })
         .then((response) => {
-            setSelectedTransaction(prevState => ({
-                ...prevState,
-                'labels': response
-            }));
+            updateTransactionLabelState(response);
         })
         .catch((error) => {
             // setIsError(true);
@@ -95,10 +107,7 @@ const Transactions = () => {
             return response.json();
         })
         .then((response) => {
-            setSelectedTransaction(prevState => ({
-                ...prevState,
-                'labels': response
-            }));     
+            updateTransactionLabelState(response);
         })
         .catch((error) => {
             // setIsError(true);
@@ -110,6 +119,10 @@ const Transactions = () => {
         const existingLabelIds = selectedTransaction.labels.map(label => label.id);
         existingLabelIds.includes(labelId) ? removeLabel(labelId) : addLabel(labelId);
     };
+
+    const handleModalClose = () => {
+        setSelectedTransaction(null);
+    }
 
     return (
         <PageLayout title={constants.TITLE}>
@@ -128,6 +141,7 @@ const Transactions = () => {
                     transaction={selectedTransaction} 
                     labels={labels}
                     handleLabelClick={handleLabelClick}
+                    handleClose={handleModalClose}
                 />
             )}
         </PageLayout>

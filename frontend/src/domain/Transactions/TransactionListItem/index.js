@@ -12,11 +12,17 @@ const TransactionListItem = ({ transaction, handleLabelsClick }) => (
             </div>
             <div className="Data Amount">{transaction.amount}</div>
         </div>
-        <div className="Labels" onClick={() => handleLabelsClick(transaction)}>
-            { transaction.labels.map(label => (
-                <Label key={label.id} transactionId={transaction.id} label={label} />
-            ))}
-        </div>
+        { transaction.labels.length == 0
+            ? <div className="Labels-add" onClick={() => handleLabelsClick(transaction)}>+</div>
+            : (
+                <div className="Labels" onClick={() => handleLabelsClick(transaction)}>
+                    { transaction.labels.map(label => (
+                        <Label key={label.id} transactionId={transaction.id} label={label} />
+                    ))}
+                </div>
+            )
+        }
+
     </div>
 );
 
