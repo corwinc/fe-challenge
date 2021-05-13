@@ -1,0 +1,41 @@
+.Modal-overlay {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.Modal-container {
+    align-items: left;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    border: 1px solid rgb(241, 241, 241);
+    border-radius: 3px;
+    padding: 32px 64px;
+}
+
+.Modal-close {
+    align-self: flex-end;
+    margin-bottom: 8px;
+}
+
+.Modal-close:hover {
+    cursor: pointer;
+}
+
+.Modal-title {
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.Modal-labels {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}

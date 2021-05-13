@@ -24,7 +24,7 @@
     font-size: 20px;
 }
 
-.Tags {
+.Labels {
     height: 100%;
     width: 266px;
     display: flex;
@@ -33,7 +33,7 @@
     align-items: center;
 }
 
-.Tags:hover {
+.Labels:hover {
     background: rgb(241, 241, 241);
     cursor: pointer;
 }

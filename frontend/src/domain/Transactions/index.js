@@ -1,13 +1,18 @@
 import { useState, useEffect } from 'react';
 
 import PageLayout from '../../components/PageLayout';
+import TransactionListItem from './TransactionListItem';
+import LabelsModal from './LabelsModal';
 import * as constants from './constants';
 import './style.css';
-import TransactionListItem from './TransactionListItem';
 
 const Transactions = () => {
     const [transactions, setTransactions] = useState(null);
     const [isError, setIsError] = useState(false);
+
+    const [labels, setLabels] = useState(null);
+
+    const [selectedTransaction, setSelectedTransaction] = useState(null);
 
     useEffect(() => {
         setIsError(false);
@@ -28,14 +33,103 @@ const Transactions = () => {
         })
     }, []);
 
+    useEffect(() => {
+        // setIsError(false);
+
+        fetch("/labels")
+        .then((response) => {
+            if (!response.ok) {
+            throw Error(response.statusText);
+            }
+            return response.json();
+        })
+        .then((response) => {
+            setLabels(response);
+        })
+        .catch((error) => {
+            // setIsError(true);
+            console.error(error);
+        })
+    }, []);
+
+    const handleLabelsClick = (transaction) => {
+        setSelectedTransaction(transaction);
+    }
+
+    const addLabel = (labelId) => {
+        const url = `/transactions/${selectedTransaction.id}/labels`;
+        const data = {
+            id: labelId
+        };
+
+        fetch(url, {
+            method: 'PUT',
+            body: JSON.stringify(data)
+        })
+        .then((response) => {
+            if (!response.ok) {
+            throw Error(response.statusText);
+            }
+            return response.json();
+        })
+        .then((response) => {
+            setSelectedTransaction(prevState => ({
+                ...prevState,
+                'labels': response
+            }));
+        })
+        .catch((error) => {
+            // setIsError(true);
+            console.error(error);
+        })
+    }
+
+    const removeLabel = (labelId) => {
+        fetch(`/transactions/${selectedTransaction.id}/labels/${labelId}`, {
+            method: 'DELETE'
+        })
+        .then((response) => {
+            if (!response.ok) {
+            throw Error(response.statusText);
+            }
+            return response.json();
+        })
+        .then((response) => {
+            setSelectedTransaction(prevState => ({
+                ...prevState,
+                'labels': response
+            }));     
+        })
+        .catch((error) => {
+            // setIsError(true);
+            console.error(error);
+        })
+    };
+
+    const handleLabelClick = (labelId) => {
+        const existingLabelIds = selectedTransaction.labels.map(label => label.id);
+        existingLabelIds.includes(labelId) ? removeLabel(labelId) : addLabel(labelId);
+    };
+
     return (
         <PageLayout title={constants.TITLE}>
             <div>
                 { isError && <div>{constants.LOAD_ERROR}</div> }
                 { transactions && transactions.map(transaction => (
-                    <TransactionListItem transaction={transaction} key={transaction.id} />
+                    <TransactionListItem
+                        transaction={transaction}
+                        handleLabelsClick={handleLabelsClick}
+                        key={transaction.id} 
+                    />
                 ))}
             </div>
+            { selectedTransaction && (
+                <LabelsModal 
+                    transaction={selectedTransaction} 
+                    labels={labels}
+                    handleLabelClick={handleLabelClick}
+                />
+            )}
         </PageLayout>
     );
 };

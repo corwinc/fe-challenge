@@ -1,0 +1,31 @@
+.Label {
+    background: white;
+    border-radius: 3px;
+    font-size: 14px;
+    padding: 2px 6px;
+    margin: 8px;
+}
+
+.Label:hover {
+    cursor: pointer;
+}
+
+#_2ae4ba70-7814-46f4-8ffc-d1278df3d0e2 {
+    background: paleturquoise;
+}
+
+#_e903cda9-c700-44b2-964e-023b9c6dce3f {
+    background: peachpuff;
+}
+
+#_edf61992-6c8a-436c-94a5-866878cfec43 {
+    background: palevioletred;
+}
+
+#_2ae4ba70-7814-46f4-8ffc-d1278df3d0e2.Unselected,
+#_e903cda9-c700-44b2-964e-023b9c6dce3f.Unselected,
+#_edf61992-6c8a-436c-94a5-866878cfec43.Unselected {
+    background: white;
+    border: 1px solid rgb(150, 150, 150);
+    color: rgb(150, 150, 150);
+}
