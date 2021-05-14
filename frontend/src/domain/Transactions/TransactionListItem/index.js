@@ -6,9 +6,9 @@ const TransactionListItem = ({ transaction, handleLabelsClick }) => (
         <div className="Container-left">
             <div className="Data Text">{transaction.text}</div>
             <div className="Data Parties-container">
-                <div className="Party">{transaction.source}</div>
-                <div> TO  </div>
-                <div className="Party">{transaction.target}</div>
+                <div>{transaction.source}</div>
+                <div>&#10140;</div>
+                <div>{transaction.target}</div>
             </div>
             <div className="Data Amount">{transaction.amount}</div>
         </div>

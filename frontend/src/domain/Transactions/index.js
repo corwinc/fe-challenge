@@ -7,13 +7,10 @@ import * as constants from './constants';
 import './style.css';
 
 const Transactions = () => {
+
+    // Load transactions
     const [transactions, setTransactions] = useState(null);
     const [isError, setIsError] = useState(false);
-
-    const [labels, setLabels] = useState(null);
-
-    const [selectedTransaction, setSelectedTransaction] = useState(null);
-
     useEffect(() => {
         setIsError(false);
 
@@ -33,9 +30,9 @@ const Transactions = () => {
         })
     }, []);
 
+    // Load available labels
+    const [labels, setLabels] = useState(null);
     useEffect(() => {
-        // setIsError(false);
-
         fetch("/labels")
         .then((response) => {
             if (!response.ok) {
@@ -47,16 +44,22 @@ const Transactions = () => {
             setLabels(response);
         })
         .catch((error) => {
-            // setIsError(true);
             console.error(error);
         })
     }, []);
 
+    // Select transaction for tags editing in modal
+    const [selectedTransaction, setSelectedTransaction] = useState(null);
     const handleLabelsClick = (transaction) => {
         setSelectedTransaction(transaction);
     }
 
-    const updateTransactionLabelState = (response) => {
+    const handleModalClose = () => {
+        setSelectedTransaction(null);
+    }
+
+    // Edit labels
+    const setTransactionLabels = (response) => {
         const updatedTransaction = Object.assign({}, {
             ...selectedTransaction,
             'labels': response
@@ -71,57 +74,29 @@ const Transactions = () => {
         setTransactions(updatedTransactions);
     };
 
-    const addLabel = (labelId) => {
-        const url = `/transactions/${selectedTransaction.id}/labels`;
-        const data = {
-            id: labelId
-        };
+    const toggleLabel = (labelId, isSelected) => {
+        const url = isSelected 
+            ? `/transactions/${selectedTransaction.id}/labels/${labelId}`
+            : `/transactions/${selectedTransaction.id}/labels`;
+        
+        const options = isSelected 
+        ? { method: 'DELETE'}
+        : { method: 'PUT', body: JSON.stringify({ id: labelId }) };
 
-        fetch(url, {
-            method: 'PUT',
-            body: JSON.stringify(data)
-        })
+        fetch(url, options)
         .then((response) => {
             if (!response.ok) {
-            throw Error(response.statusText);
-            }
-            return response.json();
+                throw Error(response.statusText);
+                }
+                return response.json();
         })
         .then((response) => {
-            updateTransactionLabelState(response);
+            setTransactionLabels(response);
         })
         .catch((error) => {
             // setIsError(true);
             console.error(error);
         })
-    }
-
-    const removeLabel = (labelId) => {
-        fetch(`/transactions/${selectedTransaction.id}/labels/${labelId}`, {
-            method: 'DELETE'
-        })
-        .then((response) => {
-            if (!response.ok) {
-            throw Error(response.statusText);
-            }
-            return response.json();
-        })
-        .then((response) => {
-            updateTransactionLabelState(response);
-        })
-        .catch((error) => {
-            // setIsError(true);
-            console.error(error);
-        })
-    };
-
-    const handleLabelClick = (labelId) => {
-        const existingLabelIds = selectedTransaction.labels.map(label => label.id);
-        existingLabelIds.includes(labelId) ? removeLabel(labelId) : addLabel(labelId);
-    };
-
-    const handleModalClose = () => {
-        setSelectedTransaction(null);
     }
 
     return (
@@ -140,7 +115,7 @@ const Transactions = () => {
                 <LabelsModal 
                     transaction={selectedTransaction} 
                     labels={labels}
-                    handleLabelClick={handleLabelClick}
+                    toggleLabel={toggleLabel}
                     handleClose={handleModalClose}
                 />
             )}

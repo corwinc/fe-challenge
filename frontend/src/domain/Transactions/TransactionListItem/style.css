@@ -24,6 +24,19 @@
     font-size: 20px;
 }
 
+.Parties-container {
+    color: rgb(140, 140, 140);
+    display: flex;
+}
+
+.Parties-container > div {
+    margin: 0 8px;
+}
+
+.Amount {
+    font-weight: bold;
+}
+
 .Labels {
     width: 266px;
     display: flex;
