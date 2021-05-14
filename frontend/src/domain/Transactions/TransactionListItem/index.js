@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import Label from '../../../components/Label';
 import './style.css';
 
@@ -25,5 +27,10 @@ const TransactionListItem = ({ transaction, handleLabelsClick }) => (
 
     </div>
 );
+
+TransactionListItem.propTypes = {
+    transaction: PropTypes.object.isRequired,
+    handleLabelsClick: PropTypes.func.isRequired
+}
 
 export default TransactionListItem;

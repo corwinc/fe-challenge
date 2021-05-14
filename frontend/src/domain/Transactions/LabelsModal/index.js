@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import PropTypes, { arrayOf } from 'prop-types';
 import Label from '../../../components/Label';
 import { TITLE } from './constants';
 import './style.css';
@@ -25,5 +25,12 @@ const LabelsModal = ({ transaction, labels, toggleLabel, handleClose }) => {
         </div>
     );
 };
+
+LabelsModal.propTypes = {
+    transaction: PropTypes.object.isRequired,
+    labels: PropTypes.array.isRequired,
+    toggleLabel: PropTypes.func.isRequired,
+    handleClose: PropTypes.func.isRequired
+}
 
 export default LabelsModal;
