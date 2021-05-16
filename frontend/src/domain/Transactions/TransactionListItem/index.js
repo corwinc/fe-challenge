@@ -12,19 +12,20 @@ const TransactionListItem = ({ transaction, handleLabelsClick }) => (
                 <div>&#10140;</div>
                 <div>{transaction.target}</div>
             </div>
-            <div className="Data Amount">{transaction.amount}</div>
         </div>
-        { transaction.labels.length == 0
-            ? <div className="Labels-add" onClick={() => handleLabelsClick(transaction)}>+</div>
-            : (
-                <div className="Labels" onClick={() => handleLabelsClick(transaction)}>
-                    { transaction.labels.map(label => (
-                        <Label key={label.id} transactionId={transaction.id} label={label} />
-                    ))}
-                </div>
-            )
-        }
-
+        <div className="Container-right">
+            <div className="Data Amount">{`$${transaction.amount}`}</div>
+            { transaction.labels.length == 0
+                ? <div className="Labels-add" onClick={() => handleLabelsClick(transaction)}>+</div>
+                : (
+                    <div className="Labels" onClick={() => handleLabelsClick(transaction)}>
+                        { transaction.labels.sort((a,b) => a.name > b.name).map(label => (
+                            <Label key={label.id} transactionId={transaction.id} label={label} />
+                        ))}
+                    </div>
+                )
+            }
+        </div>
     </div>
 );
 

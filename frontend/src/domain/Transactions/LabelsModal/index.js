@@ -5,6 +5,7 @@ import './style.css';
 
 const LabelsModal = ({ transaction, labels, toggleLabel, handleClose }) => {
     const isSelected = (id) => (transaction.labels.map(label => label.id).includes(id));
+    const sortedLabels = labels.sort((a, b) => a > b);
 
     return (
         <div className="Modal-overlay">

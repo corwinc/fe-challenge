@@ -1,19 +1,21 @@
-.App {
-  padding: 0 128px;
-}
-
 .App-header {
   align-items: center;
   color: black;
   display: flex;
   height: 32px;
-  justify-content: space-between;
+  justify-content: center;
   margin: 0 auto;
   max-width: 1184px;
-  padding: 36px 0 16px 0;
+  padding: 36px 128px 16px 128px;
 
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
+}
+
+@media (min-width: 768px) {
+  .App-header {
+    justify-content: flex-start;
+  }
 }

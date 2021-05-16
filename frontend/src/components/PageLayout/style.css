@@ -4,13 +4,22 @@
     height: 100%;
     margin: 0 auto;
     max-width: 1184px;
-    padding-top: 148px;
+    padding: 128px;
     width: 100%;
   }
 
 
 .Page-title {
-    font-size: 48px;
+    font-size: 24px;
     font-weight: 900;
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+  .Page-title {
+    font-size: 48px;
     margin-bottom: 64px;
+    text-align: left;
+  }
 }

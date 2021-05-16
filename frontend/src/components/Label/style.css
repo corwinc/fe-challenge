@@ -1,9 +1,10 @@
 .Label {
     background: white;
     border-radius: 3px;
-    font-size: 14px;
+    font-size: 10px;
     padding: 2px 6px;
-    margin: 8px;
+    margin: 4px;
+    box-sizing: content-box;
 }
 
 .Label:hover {
@@ -28,4 +29,10 @@
     background: white;
     border: 1px solid rgb(150, 150, 150);
     color: rgb(150, 150, 150);
+}
+
+@media (min-width: 480px) {
+    .Label {
+        font-size: 14px;
+    }
 }
