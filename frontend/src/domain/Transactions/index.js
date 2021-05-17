@@ -5,7 +5,11 @@ import InfiniteScroll from 'react-infinite-scroller';
 import PageLayout from '../../components/PageLayout';
 import TransactionListItem from './TransactionListItem';
 import LabelsModal from './LabelsModal';
-import * as constants from './constants';
+import { 
+    TITLE, 
+    LOAD_TRANSACTIONS_ERROR, 
+    LOAD_LABELS_ERROR 
+} from './constants';
 import './style.css';
 
 const Transactions = () => {
@@ -14,11 +18,11 @@ const Transactions = () => {
     // Load transactions
     const [transactions, setTransactions] = useState([]);
     const [total, setTotal] = useState(null);
-    const [isError, setIsError] = useState(false);
+    const [isTransactionsError, setIsTransactionsError] = useState(false);
 
     const loadTransactions = (page) => {
         const url = `/transactions?page=${page}&size=${requestSize}`;
-        setIsError(false);
+        setIsTransactionsError(false);
 
         fetch(url)
         .then((response) => {
@@ -33,10 +37,10 @@ const Transactions = () => {
             setTotal(response.total);
         })
         .catch((error) => {
-            setIsError(true);
+            setIsTransactionsError(true);
             console.error(error);
         })
-    }
+    };
 
     useEffect(() => {
         loadTransactions(0);
@@ -44,7 +48,9 @@ const Transactions = () => {
 
     // Load available labels
     const [labels, setLabels] = useState(null);
+    const [isLabelsError, setIsLabelsError] = useState(false);
     useEffect(() => {
+        setIsLabelsError(false);
         fetch("/labels")
         .then((response) => {
             if (!response.ok) {
@@ -56,12 +62,14 @@ const Transactions = () => {
             setLabels(response);
         })
         .catch((error) => {
+            setIsLabelsError(true);
             console.error(error);
         })
     }, []);
 
     // Select transaction for tags editing in modal
     const [selectedTransaction, setSelectedTransaction] = useState(null);
+    const [isLabelToggleError, setIsLabelToggleError] = useState(false);
     const handleLabelsClick = (transaction) => {
         setSelectedTransaction(transaction);
     }
@@ -70,7 +78,6 @@ const Transactions = () => {
         setSelectedTransaction(null);
     }
 
-    // Edit labels
     const setTransactionLabels = (response) => {
         const updatedTransaction = Object.assign({}, {
             ...selectedTransaction,
@@ -95,6 +102,8 @@ const Transactions = () => {
         ? { method: 'DELETE'}
         : { method: 'PUT', body: JSON.stringify({ id: labelId }) };
 
+        setIsLabelToggleError(false);
+
         fetch(url, options)
         .then((response) => {
             if (!response.ok) {
@@ -106,14 +115,15 @@ const Transactions = () => {
             setTransactionLabels(response);
         })
         .catch((error) => {
-            // setIsError(true);
+            setIsLabelToggleError(true);
             console.error(error);
-        })
-    }
+        });
+    };
 
     return (
-        <PageLayout title={constants.TITLE}>
-            { isError && <div>{constants.LOAD_ERROR}</div> }
+        <PageLayout title={TITLE}>
+            { isTransactionsError && <div>{LOAD_TRANSACTIONS_ERROR}</div> }
+            { isLabelsError && <div>{LOAD_LABELS_ERROR}</div> }
             <InfiniteScroll
                 pageStart={0}
                 initialLoad={false}
@@ -135,6 +145,7 @@ const Transactions = () => {
                     labels={labels}
                     toggleLabel={toggleLabel}
                     handleClose={handleModalClose}
+                    isError={isLabelToggleError}
                 />
             )}
         </PageLayout>
