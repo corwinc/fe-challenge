@@ -1,23 +1,26 @@
 # Taktile Frontend Challenge
+The goal of this demo is to allow users to easily label transaction data. 
 
-This repository contains the source code for a simple backend for a small frontend coding challenge.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-The point of this exercise is to show us some cool code you can write, so have fun with it! If anything is unclear or you have questions, please feel free to ask.
+## Technologies
+This project was created with:
+* React version: ^17.0
+* [React Infinite Scroller](https://www.npmjs.com/package/react-infinite-scroller): ^1.2
+* [FAST API](https://fastapi.tiangolo.com): ^0.65
 
-## Goal
 
-The goal is to create an application that allows users to easily label transaction data. Specifically, please write a SPA (single page application) to the given backend, one that allows rapid manual tagging of transactions with labels. 
+## Running the App
+1. In the 'backend' directory, use a Docker container following the steps listed in the [FAST API documentation](https://fastapi.tiangolo.com/deployment/docker/).
+2. Launch the frontend from the 'frontend' directory with `npm run start`. Use `npm install` for initial installation.
 
-## Logistics
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-* This is a one week take home challenge
-* Please fork the repository and hand in your version the day before your interview (either a link to a public code base or tarball)
-* We will review the code so that when we meet live we can discuss the discuss your solution together.
-* Please timebox the challenge to 6 hours, the point is not to have a perfect solution.
-
-## Constraints
-
-* The transactions can have from 0 to n labels.
-* If possible, use React with Typescript.
-* The website should be responsive, but don't worry about the aesthetics too much.
-* Given the 6 hour timebox, no need to implement CI/CD.
+## Notes
+Future roadmap would include:
+1. Custom hooks
+2. Click away to close modal
+3. Label editing component placed directly under transaction tags for faster UX
+4. Loading spinner
+5. Transaction sorting, filtering
+6. Testing
