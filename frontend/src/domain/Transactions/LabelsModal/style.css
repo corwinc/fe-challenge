@@ -17,7 +17,7 @@
     margin: auto;
     border: 1px solid rgb(241, 241, 241);
     border-radius: 3px;
-    padding: 16px;
+    padding: 16px 16px 32px 16px;
 }
 
 .Modal-close {

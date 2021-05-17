@@ -1,10 +1,9 @@
-.Container, .Container-left, .Container-right {
+.Container, .Container-left {
     align-items: center;
     flex-direction: column;
 }
 
 .Container {
-    align-items: stretch;
     border-bottom: 1px solid rgb(231, 231, 231);
     display: flex;
     justify-content: space-between;
@@ -12,23 +11,13 @@
     width: 100%;
 }
 
-.Container-left > div {
-    margin-bottom: 8px;
-}
-
 .Container-left {
     align-items: center;
     display: flex;
 }
 
-.Container-right {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.Data {
-    text-align: center;
+.Container-left > div {
+    margin-bottom: 8px;
 }
 
 .Text {
@@ -76,30 +65,28 @@
 }
 
 @media (min-width: 1048px) {
-    .Container, .Container-left, .Container-right {
+    .Container, .Container-left {
         flex-direction: row;
-    }
-    
-    .Data {
-        text-align: left;
+        justify-content: space-between;
     }
 
-    .Data:last-of-type {
-        margin-right: 0;
+    .Container-left > div {
+        margin-bottom: 0;
     }
 
     .Text {
-        min-width: 266px;
+        width: 266px;
     }
 
     .Parties-container {
-        min-width: 164px;
+        width: 266px;
     }
 
     .Amount {
         text-align: right;
         min-width: 164px;
         padding-right: 40px;
+        flex-grow: 1;
     }
 
     .Labels {
@@ -110,6 +97,7 @@
     .Labels-add {
         text-align: right;
         width: 266px;
+        height: 64px
     }
 
 }
