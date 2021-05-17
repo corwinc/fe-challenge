@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import InfiniteScroll from 'react-infinite-scroller';
+
 
 import PageLayout from '../../components/PageLayout';
 import TransactionListItem from './TransactionListItem';
@@ -7,14 +9,18 @@ import * as constants from './constants';
 import './style.css';
 
 const Transactions = () => {
+    const requestSize = 50;
 
     // Load transactions
-    const [transactions, setTransactions] = useState(null);
+    const [transactions, setTransactions] = useState([]);
+    const [total, setTotal] = useState(null);
     const [isError, setIsError] = useState(false);
-    useEffect(() => {
+
+    const loadTransactions = (page) => {
+        const url = `/transactions?page=${page}&size=${requestSize}`;
         setIsError(false);
 
-        fetch("/transactions")
+        fetch(url)
         .then((response) => {
             if (!response.ok) {
             throw Error(response.statusText);
@@ -22,12 +28,18 @@ const Transactions = () => {
             return response.json();
         })
         .then((response) => {
-            setTransactions(response.items);
+            const updatedTransactions = [...transactions, ...response.items];
+            setTransactions(updatedTransactions);
+            setTotal(response.total);
         })
         .catch((error) => {
             setIsError(true);
             console.error(error);
         })
+    }
+
+    useEffect(() => {
+        loadTransactions(0);
     }, []);
 
     // Load available labels
@@ -101,8 +113,14 @@ const Transactions = () => {
 
     return (
         <PageLayout title={constants.TITLE}>
-            <div>
-                { isError && <div>{constants.LOAD_ERROR}</div> }
+            { isError && <div>{constants.LOAD_ERROR}</div> }
+            <InfiniteScroll
+                pageStart={0}
+                initialLoad={false}
+                loadMore={loadTransactions}
+                hasMore={(transactions.length < total) ? true : false}
+                loader={<div className="loader" key={0}>Loading ...</div>}
+            >
                 { transactions && transactions.map(transaction => (
                     <TransactionListItem
                         transaction={transaction}
@@ -110,7 +128,7 @@ const Transactions = () => {
                         key={transaction.id} 
                     />
                 ))}
-            </div>
+            </InfiniteScroll>
             { selectedTransaction && (
                 <LabelsModal 
                     transaction={selectedTransaction} 
